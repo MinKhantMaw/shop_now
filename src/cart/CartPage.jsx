@@ -20,13 +20,10 @@ export default function CartPage() {
 
   if (!cart.length) {
     return (
-      <section className="mx-auto max-w-2xl space-y-4 rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-        <h1 className="text-2xl font-semibold">Your cart is empty</h1>
+      <section className="surface-elevated mx-auto max-w-2xl space-y-4 border-teal-100/70 p-8 text-center">
+        <h1 className="text-2xl font-bold text-slate-900">Your cart is empty</h1>
         <p className="text-slate-600">Add products from the catalog to continue.</p>
-        <Link
-          to="/"
-          className="inline-flex rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
-        >
+        <Link to="/" className="btn-brand">
           Browse catalog
         </Link>
       </section>
@@ -35,21 +32,21 @@ export default function CartPage() {
 
   return (
     <section className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-      <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h1 className="text-2xl font-bold">Shopping cart</h1>
+      <div className="surface-elevated space-y-4 border-teal-100/70 p-5">
+        <h1 className="page-title text-2xl">Shopping cart</h1>
         {cart.map((item) => (
           <article
             key={item.key}
-            className="grid gap-3 rounded-xl border border-slate-200 p-4 sm:grid-cols-[120px_1fr_auto] sm:items-center"
+            className="grid gap-3 rounded-xl border border-slate-200 bg-slate-50/60 p-4 sm:grid-cols-[120px_1fr_auto] sm:items-center"
           >
             <img
               src={item.image}
               alt={item.name}
-              className="h-20 w-full rounded-lg object-cover sm:h-16"
+              className="h-20 w-full rounded-xl object-cover sm:h-16"
             />
 
             <div>
-              <h2 className="font-semibold">{item.name}</h2>
+              <h2 className="font-bold text-slate-900">{item.name}</h2>
               <p className="text-sm text-slate-500">{item.variantLabel}</p>
               <p className="text-sm font-medium text-slate-700">
                 <Currency value={item.price} /> each
@@ -80,7 +77,7 @@ export default function CartPage() {
         ))}
       </div>
 
-      <aside className="h-fit space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <aside className="surface-elevated h-fit space-y-3 border-teal-100/70 p-5">
         <h2 className="text-lg font-semibold">Order total</h2>
         <div className="space-y-2 text-sm">
           <div className="flex justify-between text-slate-600">
@@ -117,7 +114,7 @@ export default function CartPage() {
           type="button"
           disabled={Boolean(validationError)}
           onClick={() => navigate('/checkout')}
-          className="w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+          className="btn-brand w-full disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none"
         >
           Proceed to checkout
         </button>

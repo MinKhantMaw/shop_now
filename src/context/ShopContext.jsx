@@ -164,14 +164,15 @@ export function ShopProvider({ children }) {
 
   const filteredProducts = useMemo(() => {
     return state.products.filter((product) => {
+      const variants = Array.isArray(product.variants) ? product.variants : []
       const term = state.filters.search.toLowerCase().trim()
       const matchesSearch =
         !term ||
-        product.name.toLowerCase().includes(term) ||
-        product.description.toLowerCase().includes(term)
+        (product.name || '').toLowerCase().includes(term) ||
+        (product.description || '').toLowerCase().includes(term)
       const matchesCategory =
         state.filters.category === 'All' || product.category === state.filters.category
-      const hasStock = product.variants.some((variant) => variant.stock > 0)
+      const hasStock = variants.some((variant) => variant.stock > 0)
       const matchesStock = !state.filters.inStockOnly || hasStock
 
       return matchesSearch && matchesCategory && matchesStock

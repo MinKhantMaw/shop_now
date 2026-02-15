@@ -6,38 +6,38 @@ import Currency from '../components/Currency'
 import { useShop } from '../context/ShopContext'
 
 function CatalogCard({ product, onAdd }) {
-  const [selectedVariantId, setSelectedVariantId] = useState(product.variants[0]?.id || '')
+  const variants = Array.isArray(product.variants) ? product.variants : []
+  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id || '')
   const [quantity, setQuantity] = useState(1)
 
-  const selectedVariant =
-    product.variants.find((variant) => variant.id === selectedVariantId) || product.variants[0]
+  const selectedVariant = variants.find((variant) => variant.id === selectedVariantId) || variants[0]
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <img src={product.image} alt={product.name} className="h-44 w-full object-cover" />
-      <div className="flex flex-1 flex-col gap-3 p-4">
+    <article className="surface-elevated flex h-full flex-col overflow-hidden border-teal-100/70">
+      <img src={product.image} alt={product.name} className="h-48 w-full object-cover" />
+      <div className="flex flex-1 flex-col gap-4 p-5">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-lg font-semibold">{product.name}</h3>
-            <p className="text-sm text-slate-500">{product.category}</p>
+            <h3 className="text-lg font-bold text-slate-900">{product.name}</h3>
+            <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">{product.category}</p>
           </div>
-          <span className="text-base font-semibold text-slate-800">
+          <span className="rounded-full bg-teal-50 px-3 py-1 text-base font-bold text-teal-800">
             <Currency value={product.price} />
           </span>
         </div>
 
-        <p className="text-sm text-slate-600">{product.description}</p>
+        <p className="text-sm leading-6 text-slate-600">{product.description}</p>
 
-        <label className="text-sm font-medium text-slate-700" htmlFor={`${product.id}-variant`}>
+        <label className="text-xs font-semibold uppercase tracking-wide text-slate-600" htmlFor={`${product.id}-variant`}>
           Variant
         </label>
         <select
           id={`${product.id}-variant`}
           value={selectedVariantId}
           onChange={(event) => setSelectedVariantId(event.target.value)}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+          className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm"
         >
-          {product.variants.map((variant) => (
+          {variants.map((variant) => (
             <option key={variant.id} value={variant.id}>
               {variant.label}
             </option>
@@ -52,7 +52,7 @@ function CatalogCard({ product, onAdd }) {
             max={selectedVariant?.stock || 1}
             value={quantity}
             onChange={(event) => setQuantity(Number(event.target.value) || 1)}
-            className="w-20 rounded-lg border border-slate-300 px-2 py-1 text-sm"
+            className="w-20 rounded-xl border border-slate-200 bg-slate-50 px-2 py-1.5 text-sm"
           />
         </div>
 
@@ -60,7 +60,7 @@ function CatalogCard({ product, onAdd }) {
           type="button"
           disabled={!selectedVariant || selectedVariant.stock <= 0}
           onClick={() => onAdd(product, selectedVariant, quantity)}
-          className="mt-auto rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+          className="btn-brand mt-auto disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none"
         >
           Add to cart
         </button>
@@ -81,33 +81,33 @@ export default function CatalogPage() {
 
   return (
     <section className="space-y-6">
-      <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:flex-row lg:items-center lg:justify-between">
+      <div className="surface-elevated flex flex-col gap-4 border-teal-100/70 p-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Shop the latest drops</h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <h1 className="page-title">Shop the latest drops</h1>
+          <p className="mt-2 text-sm text-slate-600">
             Browse products, choose variants, and check live stock before checkout.
           </p>
         </div>
         <Link
           to="/cart"
-          className="inline-flex rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+          className="btn-muted"
         >
           Go to cart
         </Link>
       </div>
 
-      <div className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:grid-cols-2 lg:grid-cols-4">
+      <div className="surface-card grid gap-4 border-teal-100/70 p-4 md:grid-cols-2 lg:grid-cols-4">
         <input
           type="search"
           value={filters.search}
           onChange={(event) => setFilters({ search: event.target.value })}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm md:col-span-2"
+          className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm md:col-span-2"
           placeholder="Search products..."
         />
         <select
           value={filters.category}
           onChange={(event) => setFilters({ category: event.target.value })}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+          className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm"
         >
           {categories.map((category) => (
             <option key={category} value={category}>
@@ -116,7 +116,7 @@ export default function CatalogPage() {
           ))}
         </select>
 
-        <label className="flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700">
+        <label className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
           <input
             type="checkbox"
             checked={filters.inStockOnly}
@@ -130,11 +130,11 @@ export default function CatalogPage() {
       {productsLoading ? (
         <Loader label="Loading product catalog..." />
       ) : filteredProducts.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">
+        <div className="surface-card rounded-xl border-dashed border-slate-300 p-8 text-center text-slate-500">
           No products match your filters.
         </div>
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredProducts.map((product) => (
             <CatalogCard key={product.id} product={product} onAdd={addToCart} />
           ))}

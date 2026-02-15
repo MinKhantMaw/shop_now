@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  --bg: #f2f6f9;
+  --text: #102026;
+  --muted: #58717d;
+  --card: #ffffff;
+  --line: #dbe5ea;
+  --brand: #0f766e;
+  --brand-strong: #115e59;
+  --brand-soft: #e6f8f3;
 }
 
 * {
@@ -14,10 +24,12 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(circle at 10% 10%, rgba(148, 163, 184, 0.2), transparent 32%),
-    radial-gradient(circle at 90% 20%, rgba(56, 189, 248, 0.12), transparent 28%),
-    #f8fafc;
-  color: #0f172a;
+    radial-gradient(circle at 10% 5%, rgba(20, 184, 166, 0.14), transparent 30%),
+    radial-gradient(circle at 95% 25%, rgba(16, 185, 129, 0.12), transparent 34%),
+    linear-gradient(180deg, #f6fafc 0%, var(--bg) 100%);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 img {
@@ -26,7 +38,75 @@ img {
 }
 
 input,
+textarea,
 select,
 button {
   font: inherit;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  input,
+  select,
+  textarea {
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #2aa89f;
+    box-shadow: 0 0 0 4px rgba(42, 168, 159, 0.18);
+  }
+}
+
+@layer components {
+  .surface-card {
+    @apply rounded-2xl border bg-white shadow-sm;
+    border-color: var(--line);
+  }
+
+  .surface-elevated {
+    @apply rounded-2xl border bg-white shadow;
+    border-color: var(--line);
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.05),
+      0 10px 28px rgba(15, 23, 42, 0.08);
+  }
+
+  .btn-brand {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold text-white transition;
+    background: linear-gradient(135deg, #0f766e 0%, #0f9a8f 100%);
+    box-shadow: 0 10px 20px rgba(15, 118, 110, 0.25);
+  }
+
+  .btn-brand:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #115e59 0%, #0f766e 100%);
+  }
+
+  .btn-muted {
+    @apply inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold transition;
+    border-color: var(--line);
+    color: #1f3a44;
+    background: #fff;
+  }
+
+  .btn-muted:hover {
+    background: #f3f8fa;
+  }
+
+  .page-title {
+    @apply text-3xl font-extrabold tracking-tight;
+    color: #0f2d36;
+  }
 }

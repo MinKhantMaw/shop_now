@@ -3,7 +3,7 @@ import { useShop } from '../context/ShopContext'
 const tone = {
   success: 'border-emerald-200 bg-emerald-50 text-emerald-900',
   error: 'border-rose-200 bg-rose-50 text-rose-900',
-  info: 'border-sky-200 bg-sky-50 text-sky-900',
+  info: 'border-teal-200 bg-teal-50 text-teal-900',
 }
 
 export default function ToastAlerts() {
@@ -14,7 +14,7 @@ export default function ToastAlerts() {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className={`pointer-events-auto rounded-lg border px-4 py-3 text-sm shadow ${tone[toast.type] || tone.info}`}
+          className={`pointer-events-auto rounded-xl border px-4 py-3 text-sm shadow-lg backdrop-blur ${tone[toast.type] || tone.info}`}
         >
           {toast.message}
         </div>

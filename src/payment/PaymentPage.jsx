@@ -16,13 +16,10 @@ export default function PaymentPage() {
 
   if (!checkoutSnapshot) {
     return (
-      <section className="mx-auto max-w-xl space-y-4 rounded-2xl border border-slate-200 bg-white p-8 text-center">
-        <h1 className="text-2xl font-semibold">Checkout step required</h1>
+      <section className="surface-elevated mx-auto max-w-xl space-y-4 border-teal-100/70 p-8 text-center">
+        <h1 className="text-2xl font-bold">Checkout step required</h1>
         <p className="text-slate-600">Complete checkout before initiating payment.</p>
-        <Link
-          to="/checkout"
-          className="inline-flex rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
-        >
+        <Link to="/checkout" className="btn-brand">
           Go to checkout
         </Link>
       </section>
@@ -38,18 +35,18 @@ export default function PaymentPage() {
 
   return (
     <section className="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_1fr]">
-      <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-bold">Payment</h1>
+      <div className="surface-elevated space-y-4 border-teal-100/70 p-6">
+        <h1 className="page-title text-2xl">Payment</h1>
         <p className="text-sm text-slate-600">Select payment method and confirm transaction.</p>
 
         <div className="space-y-2">
           {methods.map((entry) => (
             <label
               key={entry.id}
-              className={`flex items-center gap-3 rounded-lg border px-4 py-3 text-sm ${
+              className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-sm transition ${
                 method === entry.id
-                  ? 'border-slate-900 bg-slate-900 text-white'
-                  : 'border-slate-300 hover:border-slate-500'
+                  ? 'border-teal-700 bg-gradient-to-br from-teal-700 to-teal-800 text-white shadow-md'
+                  : 'border-slate-300 bg-slate-50/60 hover:border-teal-400'
               }`}
             >
               <input
@@ -74,13 +71,13 @@ export default function PaymentPage() {
           type="button"
           disabled={paymentStatus.loading}
           onClick={onPayNow}
-          className="w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+          className="btn-brand w-full disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none"
         >
           {paymentStatus.loading ? 'Processing payment...' : 'Pay now'}
         </button>
       </div>
 
-      <aside className="h-fit space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <aside className="surface-elevated h-fit space-y-3 border-teal-100/70 p-6">
         <h2 className="text-lg font-semibold">Final summary</h2>
         <div className="space-y-2 text-sm text-slate-600">
           <div className="flex justify-between">
