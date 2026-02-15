@@ -96,7 +96,7 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <Link to="/" className="mt-5 inline-block text-sm font-semibold text-teal-700 hover:text-teal-900">
+      <Link to="/shop" className="mt-5 inline-block text-sm font-semibold text-teal-700 hover:text-teal-900">
         Back to catalog
       </Link>
     </section>

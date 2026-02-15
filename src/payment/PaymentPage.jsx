@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import Breadcrumbs from '../components/Breadcrumbs'
 import Currency from '../components/Currency'
 import { useShop } from '../context/ShopContext'
 
@@ -35,6 +36,22 @@ export default function PaymentPage() {
 
   return (
     <section className="mx-auto grid max-w-4xl gap-6 lg:grid-cols-[1fr_1fr]">
+      <div className="lg:col-span-2 space-y-4">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', to: '/' },
+            { label: 'Cart', to: '/cart' },
+            { label: 'Checkout', to: '/checkout' },
+            { label: 'Payment' },
+          ]}
+        />
+        <div className="surface-card flex flex-wrap items-center gap-3 border-teal-100/70 p-3 text-sm">
+          <span className="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-700">1. Shipping</span>
+          <span className="rounded-full bg-teal-700 px-3 py-1 font-semibold text-white">2. Payment</span>
+          <span className="rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-500">3. Confirmation</span>
+        </div>
+      </div>
+
       <div className="surface-elevated space-y-4 border-teal-100/70 p-6">
         <h1 className="page-title text-2xl">Payment</h1>
         <p className="text-sm text-slate-600">Select payment method and confirm transaction.</p>

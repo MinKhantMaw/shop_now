@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import Breadcrumbs from '../components/Breadcrumbs'
 import Currency from '../components/Currency'
 import { useShop } from '../context/ShopContext'
 
@@ -38,7 +39,7 @@ export default function OrderConfirmationPage() {
         <p className="text-slate-600">
           We could not find this order in your current session. Please check your orders list.
         </p>
-        <Link to="/" className="btn-brand">
+        <Link to="/shop" className="btn-brand">
           Back to catalog
         </Link>
       </section>
@@ -50,6 +51,20 @@ export default function OrderConfirmationPage() {
 
   return (
     <section className="mx-auto max-w-3xl space-y-6">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', to: '/' },
+          { label: 'Cart', to: '/cart' },
+          { label: 'Checkout', to: '/checkout' },
+          { label: 'Order confirmation' },
+        ]}
+      />
+      <div className="surface-card flex flex-wrap items-center gap-3 border-teal-100/70 p-3 text-sm">
+        <span className="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-700">1. Shipping</span>
+        <span className="rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-700">2. Payment</span>
+        <span className="rounded-full bg-teal-700 px-3 py-1 font-semibold text-white">3. Confirmation</span>
+      </div>
+
       <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 p-6 shadow-sm">
         <p className="text-sm font-medium uppercase tracking-wide text-emerald-700">Payment complete</p>
         <h1 className="mt-1 text-2xl font-bold text-emerald-900">Thank you for your order.</h1>
@@ -105,7 +120,7 @@ export default function OrderConfirmationPage() {
         </article>
       </div>
 
-      <Link to="/" className="btn-brand">
+      <Link to="/shop" className="btn-brand">
         Continue shopping
       </Link>
     </section>

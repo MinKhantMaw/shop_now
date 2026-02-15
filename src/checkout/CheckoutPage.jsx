@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import Breadcrumbs from '../components/Breadcrumbs'
 import Currency from '../components/Currency'
 import Loader from '../components/Loader'
 import { useShop } from '../context/ShopContext'
@@ -46,7 +47,7 @@ export default function CheckoutPage() {
       <section className="surface-elevated mx-auto max-w-xl space-y-4 border-teal-100/70 p-8 text-center">
         <h1 className="text-2xl font-bold">No items to checkout</h1>
         <p className="text-slate-600">Your cart is empty. Add products before checkout.</p>
-        <Link to="/" className="btn-brand">
+        <Link to="/shop" className="btn-brand">
           Return to catalog
         </Link>
       </section>
@@ -64,9 +65,28 @@ export default function CheckoutPage() {
 
   return (
     <section className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+      <div className="lg:col-span-2 space-y-4">
+        <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Cart', to: '/cart' }, { label: 'Checkout' }]} />
+        <div className="surface-card flex flex-wrap items-center gap-3 border-teal-100/70 p-3 text-sm">
+          <span className="rounded-full bg-teal-700 px-3 py-1 font-semibold text-white">1. Shipping</span>
+          <span className="rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-500">2. Payment</span>
+          <span className="rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-500">3. Confirmation</span>
+        </div>
+      </div>
+
       <div className="surface-elevated space-y-4 border-teal-100/70 p-5">
         <h1 className="page-title text-2xl">Checkout</h1>
         <p className="text-sm text-slate-600">Select delivery address and confirm your order.</p>
+
+        <div className="grid gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-2">
+          <h2 className="md:col-span-2 text-sm font-semibold uppercase tracking-wide text-slate-700">Shipping details</h2>
+          <input type="text" placeholder="Full name" className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm" />
+          <input type="text" placeholder="Phone number" className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm" />
+          <input type="email" placeholder="Email address" className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm md:col-span-2" />
+          <input type="text" placeholder="Address line" className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm md:col-span-2" />
+          <input type="text" placeholder="City" className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm" />
+          <input type="text" placeholder="Postal code" className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm" />
+        </div>
 
         {addressesLoading ? (
           <Loader label="Loading addresses..." />

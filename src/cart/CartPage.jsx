@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
+import Breadcrumbs from '../components/Breadcrumbs'
 import Currency from '../components/Currency'
 import QuantityControl from '../components/QuantityControl'
 import { useShop } from '../context/ShopContext'
@@ -23,7 +24,7 @@ export default function CartPage() {
       <section className="surface-elevated mx-auto max-w-2xl space-y-4 border-teal-100/70 p-8 text-center">
         <h1 className="text-2xl font-bold text-slate-900">Your cart is empty</h1>
         <p className="text-slate-600">Add products from the catalog to continue.</p>
-        <Link to="/" className="btn-brand">
+        <Link to="/shop" className="btn-brand">
           Browse catalog
         </Link>
       </section>
@@ -32,6 +33,10 @@ export default function CartPage() {
 
   return (
     <section className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="lg:col-span-2">
+        <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Cart' }]} />
+      </div>
+
       <div className="surface-elevated space-y-4 border-teal-100/70 p-5">
         <h1 className="page-title text-2xl">Shopping cart</h1>
         {cart.map((item) => (
@@ -103,6 +108,20 @@ export default function CartPage() {
             <span>
               <Currency value={cartTotal} />
             </span>
+          </div>
+        </div>
+
+        <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
+          <label className="text-xs font-semibold uppercase tracking-wide text-slate-600">Coupon code</label>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Enter code"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+            />
+            <button type="button" className="btn-muted whitespace-nowrap">
+              Apply
+            </button>
           </div>
         </div>
 

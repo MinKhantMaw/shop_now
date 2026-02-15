@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import NotFoundPage from './components/NotFoundPage'
 import CatalogPage from './catalog/CatalogPage'
+import ProductDetailPage from './catalog/ProductDetailPage'
 import CartPage from './cart/CartPage'
 import CheckoutPage from './checkout/CheckoutPage'
 import PaymentPage from './payment/PaymentPage'
@@ -9,12 +10,15 @@ import OrderConfirmationPage from './orders/OrderConfirmationPage'
 import LoginPage from './auth/LoginPage'
 import RequireAuth from './auth/RequireAuth'
 import ProfilePage from './auth/ProfilePage'
+import HomePage from './home/HomePage'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<CatalogPage />} />
+        <Route index element={<HomePage />} />
+        <Route path="shop" element={<CatalogPage />} />
+        <Route path="products/:productId" element={<ProductDetailPage />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route
